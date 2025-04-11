@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Box } from "@mui/material";
 import Navbar from "../components/navbar";
+import LocationCard from "../components/LocationCard";
 
 function Home() {
     return (
@@ -24,7 +25,9 @@ function Home() {
                     mt: 1
                 }}
             >
-                
+                <LocationCard>
+                    
+                </LocationCard>
             </Box>
         </Container>
     );
