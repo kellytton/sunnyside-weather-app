@@ -5,14 +5,14 @@ const isDev = process.env.IS_DEV == "true" ? true : false;
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
-        width: 713,
-        height: 663,
+        width: 1280,
+        height: 720,
         autoHideMenuBar: true, // Adjust this to true to hide the top menu (autoHideMenuBar)
         resizable: false,
         frame: false, // Disables the default window frame
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
-            nodeIntegration: false, // Disable node integration for security reasons
+            nodeIntegration: true,
             contextIsolation: true, // Enable context isolation for security
         },
     });
