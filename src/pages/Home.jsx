@@ -24,7 +24,7 @@ function Home() {
                     mt: 1
                 }}
             >
-                To be continued...
+                
             </Box>
         </Container>
     );
