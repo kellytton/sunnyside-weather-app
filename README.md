@@ -14,12 +14,14 @@ This project is currently in development.
 
 ## 🛠️ Tech Stack
 
-| Tool            | Purpose                                |
+| **Tool**        | **Purpose**                            |
 |-----------------|----------------------------------------|
 | Electron        | Desktop shell                          |
 | React           | UI framework                           |
+| Node.js         | Server-side JavaScript runtime for handling API requests, backend logic, and communication between frontend and weather API  |
+| SQLite          | Lightweight, serverless local database for storing user preferences and saved locations (e.g., favorite cities)    |
 | Vite            | Build tool and dev server              |
-| MUI             | (Optional) UI component library        |
+| MUI             | UI component library                   |
 | Weather API     | Fetch current weather data             |
 
 ---
