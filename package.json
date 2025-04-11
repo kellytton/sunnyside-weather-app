@@ -20,6 +20,9 @@
     "package": "npm run app:build"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
