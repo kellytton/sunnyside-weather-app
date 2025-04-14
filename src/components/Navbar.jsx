@@ -23,7 +23,7 @@ function Navbar() {
                     display: 'flex',
                     gap: "30px"
                 }}
-                className="nav glass"
+                className="nav glass "
             >
                 <a href="Home" className="nav-buttons">Home</a>
                 <a href="Forecast" className="nav-buttons">Forecast</a>
