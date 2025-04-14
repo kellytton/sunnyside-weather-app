@@ -25,13 +25,19 @@ function Navbar() {
                 }}
                 className="nav glass"
             >
-                <a href="Home">Home</a>
-                <a href="Forecast">Forecast</a>
+                <a href="Home" className="nav-buttons">Home</a>
+                <a href="Forecast" className="nav-buttons">Forecast</a>
             </Box>
 
             {/* Window Buttons - Right */}
-            <Box>
-                <h1>temp</h1>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '15px'
+                }}
+            >
+                <a href="" className="minimize-button">_</a>
+                <a href="" className="exit-button">X</a>
             </Box>
         </Box>
     );

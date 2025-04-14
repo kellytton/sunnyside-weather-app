@@ -30,3 +30,21 @@ a {
     color: #fff;
     font-size: 18px;
 }
+
+.nav-buttons {
+    font-style: normal;
+    display: inline-block;
+    transition: transform 0s ease, font-style 0s ease;
+}
+
+.nav-buttons:hover {
+    transform: skewX(-10deg);
+    font-style: italic;
+}
+
+.minimize-button, .exit-button {
+    background-color: #2F4239;
+    border-radius: 5px;
+    padding: 10px;
+    color: #6A7871;
+}
