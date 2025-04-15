@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-    background-color: #42544B;
+    background-color: #EBA22F;
     font-family: "Inria Serif";
 }
 
@@ -19,16 +19,15 @@ body {
 }
 
 .glass {
-    background: linear-gradient(135deg, rgba(92, 207, 105, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    background: linear-gradient(98.31deg, rgba(255, 255, 255, 0.4) 35.37%, rgba(255, 255, 255, 0.1) 71.26%);
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+    border-radius: 13px;
 }
 
 a {
     text-decoration: none;
-    color: #fff;
+    color: #000000;
     font-size: 18px;
 }
 

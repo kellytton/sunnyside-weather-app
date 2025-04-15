@@ -13,20 +13,23 @@ function Home() {
                 flexDirection: 'column',
                 height: '95vh',
                 pt: 2,
-                color: 'white'
+                color: 'black'
             }}
         >
             <Navbar/>
             <Box
                 sx={{
-                    backgroundColor: '#6A7871',
+                    backgroundColor: '#F7E1B3',
                     flexGrow: 1, // take remaining space
                     borderRadius: 3,
-                    mt: 1
+                    mt: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    pt: 3.5
                 }}
             >
                 <LocationCard>
-                    
+
                 </LocationCard>
             </Box>
         </Container>

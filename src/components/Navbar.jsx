@@ -21,9 +21,10 @@ function Navbar() {
                     left: '50%',
                     transform: 'translateX(-50%)',
                     display: 'flex',
-                    gap: "30px"
+                    gap: "30px",
+                    backgroundColor: '#F7E1B3'
                 }}
-                className="nav glass "
+                className="nav"
             >
                 <a href="Home" className="nav-buttons">Home</a>
                 <a href="Forecast" className="nav-buttons">Forecast</a>
