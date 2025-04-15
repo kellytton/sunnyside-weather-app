@@ -1,7 +1,17 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 function Navbar() {
+    // Handle minimize action
+    const handleMinimize = () => {
+        window.electron.minimizeApp(); // Minimize the window
+    };
+
+    // Handle close action
+    const handleClose = () => {
+        window.electron.closeApp(); // Close the window
+    };
+
     return (
         <Box
             sx={{
@@ -10,9 +20,10 @@ function Navbar() {
                 alignItems: 'center',
                 position: 'relative',
             }}
+            className="drag"
         >
             {/* Title - Left */}
-            <h1>zenweather.</h1>
+            <Typography variant="h1">zenweather</Typography>
 
             {/* Centered Nav */}
             <Box
@@ -26,8 +37,12 @@ function Navbar() {
                 }}
                 className="nav"
             >
-                <a href="Home" className="nav-buttons">Home</a>
-                <a href="Forecast" className="nav-buttons">Forecast</a>
+                <a href="Home" className="nav-buttons no-drag">
+                    <Typography variant="h3">Home</Typography>
+                </a>
+                <a href="Forecast" className="nav-buttons no-drag">
+                    <Typography variant="h3">Forecast</Typography>
+                </a>
             </Box>
 
             {/* Window Buttons - Right */}
@@ -37,8 +52,12 @@ function Navbar() {
                     gap: '15px'
                 }}
             >
-                <a href="" className="minimize-button">_</a>
-                <a href="" className="exit-button">X</a>
+                <a href="" className="minimize-button no-drag" onClick={handleMinimize}>
+                    <p className="minimize-button-text">_</p>
+                </a>
+                <a href="" className="exit-button no-drag" onClick={handleClose}>
+                    <p className="exit-button-text">X</p>
+                </a>
             </Box>
         </Box>
     );

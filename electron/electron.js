@@ -9,7 +9,7 @@ function createWindow() {
         height: 720,
         autoHideMenuBar: true, // Adjust this to true to hide the top menu (autoHideMenuBar)
         resizable: false,
-        frame: true, // Disable the default window frame later
+        frame: false,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             nodeIntegration: true,

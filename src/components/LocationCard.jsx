@@ -10,18 +10,19 @@ function LocationCard() {
                 height: '100px',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center', // center vertically within card
-                padding: '0.5rem',
+                justifyContent: 'center',
+                px: '1.2rem',
                 borderRadius: '8px',
+                boxSizing: 'border-box',
             }}
             className="glass"
         >
-            {/* Top row: icon + city on left, temp on right */}
+            {/* First row: icon + city on left, temp on right */}
             <Box
                 sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center', // center icon/text vertically in row
+                    alignItems: 'center',
                 }}
             >
                 {/* Left: icon + city */}
@@ -38,14 +39,15 @@ function LocationCard() {
                 <Typography variant="h4">96°</Typography>
             </Box>
 
-            {/* Second row: weather description */}
+            {/* Second row: weather description (under city only) */}
             <Box
                 sx={{
                     mt: 0.5,
                     display: 'flex',
-                    alignItems: 'center', // optional for vertical centering
                 }}
             >
+                {/* spacer to align under city */}
+                <Box sx={{ width: 32, mr: 0.5 }} /> {/* width = icon + margin */}
                 <Typography variant="subtitle1">Sunny</Typography>
             </Box>
         </Box>

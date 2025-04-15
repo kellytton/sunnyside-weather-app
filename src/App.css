@@ -7,6 +7,14 @@ body {
     font-family: "Inria Serif";
 }
 
+.drag {
+    -webkit-app-region: drag;
+}
+
+.no-drag {
+    -webkit-app-region: no-drag;
+}
+
 .nav {
     height: 43px;
     width: 236px;
@@ -43,8 +51,21 @@ a {
 }
 
 .minimize-button, .exit-button {
-    background-color: #2F4239;
-    border-radius: 5px;
-    padding: 10px;
-    color: #6A7871;
+    width: 36px;
+    height: 36px;
+    left: 1167px;
+    top: 20px;
+    background: #F7E1B3;
+    border-radius: 8px;
+    display: flex;            
+    align-items: center;     
+    justify-content: center;
+    text-decoration: none;
+}
+
+.minimize-button-text, .exit-button-text {
+    font-family: 'Karla';
+    font-size: 36px;
+    text-align: center;
+    color: #000000;
 }

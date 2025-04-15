@@ -12,7 +12,7 @@ function Home() {
                 display: 'flex',
                 flexDirection: 'column',
                 height: '95vh',
-                pt: 2,
+                pt: 3,
                 color: 'black'
             }}
         >
@@ -22,15 +22,16 @@ function Home() {
                     backgroundColor: '#F7E1B3',
                     flexGrow: 1, // take remaining space
                     borderRadius: 3,
-                    mt: 1,
+                    mt: 2,
                     display: 'flex',
-                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '20px',
                     pt: 3.5
                 }}
             >
-                <LocationCard>
-
-                </LocationCard>
+                <LocationCard/>
+                <LocationCard/>
             </Box>
         </Container>
     );
