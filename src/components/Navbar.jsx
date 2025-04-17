@@ -23,7 +23,7 @@ function Navbar() {
             className="drag"
         >
             {/* Title - Left */}
-            <Typography variant="h1">zenweather</Typography>
+            <Typography variant="h1">sunnyside</Typography>
 
             {/* Centered Nav */}
             <Box
