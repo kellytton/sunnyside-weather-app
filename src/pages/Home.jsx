@@ -5,7 +5,6 @@ import {
 } from "@mui/material";
 import Navbar from "../components/navbar";
 import LocationCard from "../components/LocationCard";
-import { getWeatherDescription } from '../utils/weatherUtils';
 
 // MUI icons
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -67,11 +66,11 @@ function Home() {
                 flexDirection: 'column',
                 height: '95vh',
                 pt: 3,
-                color: 'black'
+                color: 'black',
             }}
         >
             <Navbar />
-
+            {/* Inner Box */}
             <Box
                 sx={{
                     backgroundColor: '#F7E1B3',
@@ -82,10 +81,12 @@ function Home() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: '20px',
-                    pt: 3.5
+                    pt: 3.5,
+                    pb: 3.5,
+                    mb: 2
                 }}
             >
-                {/* Search bar */}
+                {/* Search Feature */}
                 <Box
                     sx={{
                         display: "flex",
@@ -132,6 +133,23 @@ function Home() {
                 {locations.map((loc, index) => (
                     <LocationCard key={index} location={loc} />
                 ))}
+
+                {/* Toggle Buttons */}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignSelf: "flex-end",
+                        mr: 4.4,
+                        gap: '15px',
+                        mt: 'auto',
+                        pt: 2
+                    }}
+                >
+                    {/* Dark Mode and Light Mode */}
+                    <button className="toggle-buttons">M</button>
+                    {/* Celsius and Fahrenheit */}
+                    <button className="toggle-buttons">T</button>
+                </Box>
             </Box>
         </Container>
     );

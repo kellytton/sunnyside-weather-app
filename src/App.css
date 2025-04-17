@@ -69,3 +69,13 @@ a {
     text-align: center;
     color: #000000;
 }
+
+/* Toggle Buttons */
+.toggle-buttons {
+    border-radius: 50%;
+    background-color: #EFB978;
+    height: 43px;
+    width: 43px;
+    cursor: pointer;
+    border: none;
+}
