@@ -20,7 +20,7 @@ function createWindow() {
     console.log(path.join(__dirname, "../dist/index.html")); // Log the path for debugging
     mainWindow.loadURL(
         isDev
-            ? "http://localhost:5174"
+            ? "http://localhost:5173"
             : `file://${path.resolve(__dirname, "../dist/index.html")}`
     );
 

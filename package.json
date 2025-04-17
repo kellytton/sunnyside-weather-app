@@ -11,7 +11,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "backend": "node backend/server.js",
-    "electron": "wait-on tcp:5174 && cross-env IS_DEV=true electron .",
+    "electron": "wait-on tcp:5173 && cross-env IS_DEV=true electron .",
     "electron:pack": "electron-builder --dir",
     "electron:dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"npm run electron\"",
     "electron:builder": "electron-builder",
@@ -22,6 +22,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
     "axios": "^1.8.4",
     "concurrently": "^9.1.2",

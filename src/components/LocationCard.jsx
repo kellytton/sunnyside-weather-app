@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import locationIcon from '../assets/location.png';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 
 function LocationCard() {
     return (
@@ -27,11 +27,7 @@ function LocationCard() {
             >
                 {/* Left: icon + city */}
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <img
-                        src={locationIcon}
-                        alt="Selected Location"
-                        style={{ width: 24, height: 24, marginRight: 8 }}
-                    />
+                    <PlaceOutlinedIcon style={{ width: 24, height: 24, marginRight: 8 }} />
                     <Typography variant="h4">Miami, FL</Typography>
                 </Box>
 
