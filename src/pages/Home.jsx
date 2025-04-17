@@ -138,8 +138,8 @@ function Home() {
                         alignItems: 'center',
                         gap: '20px',
                         px: 4.4,
-                        pt: 2,
-                        pb: 2
+                        pt: 2.5,
+                        pb: 2.5
                     }}
                 >
                     {locations.map((loc, index) => (
