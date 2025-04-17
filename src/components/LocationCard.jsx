@@ -2,7 +2,9 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 
-function LocationCard() {
+function LocationCard({ location }) {
+    const { name, state, country } = location;
+
     return (
         <Box
             sx={{
@@ -25,26 +27,19 @@ function LocationCard() {
                     alignItems: 'center',
                 }}
             >
-                {/* Left: icon + city */}
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <PlaceOutlinedIcon style={{ width: 24, height: 24, marginRight: 8 }} />
-                    <Typography variant="h4">Miami, FL</Typography>
+                    <Typography variant="h4">
+                        {name}{state ? `, ${state}` : ''}{country ? `, ${country}` : ''}
+                    </Typography>
                 </Box>
 
-                {/* Right: temperature */}
-                <Typography variant="h4">96°</Typography>
+                <Typography variant="h4">--°</Typography> {/* Placeholder for weather */}
             </Box>
 
-            {/* Second row: weather description (under city only) */}
-            <Box
-                sx={{
-                    mt: 0.5,
-                    display: 'flex',
-                }}
-            >
-                {/* spacer to align under city */}
-                <Box sx={{ width: 32, mr: 0.5 }} /> {/* width = icon + margin */}
-                <Typography variant="subtitle1">Sunny</Typography>
+            <Box sx={{ mt: 0.5, display: 'flex' }}>
+                <Box sx={{ width: 32, mr: 0.5 }} />
+                <Typography variant="subtitle1">Fetching weather...</Typography>
             </Box>
         </Box>
     );

@@ -1,9 +1,63 @@
-import React from "react";
-import { Container, Box } from "@mui/material";
+import React, { useState } from "react";
+import {
+    Container, Box, TextField, Button, Typography,
+    InputAdornment
+} from "@mui/material";
 import Navbar from "../components/navbar";
 import LocationCard from "../components/LocationCard";
+import { getWeatherDescription } from '../utils/weatherUtils';
+
+// MUI icons
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 function Home() {
+    const [searchInput, setSearchInput] = useState("");
+    const [error, setError] = useState("");
+    const [locations, setLocations] = useState([
+        {
+            name: "Miami",
+            state: "FL",
+            country: "United States",
+            latitude: 25.7617,
+            longitude: -80.1918
+        }
+    ]);
+
+    const handleSearch = async () => {
+        const trimmed = searchInput.trim();
+        if (!trimmed) return;
+
+        try {
+            const response = await fetch(`http://localhost:3001/api/geocode?name=${encodeURIComponent(trimmed)}`);
+            const data = await response.json();
+
+            console.log("Geocode response:", data); // Debug
+
+            if (response.ok) {
+                // Check if location already exists
+                const alreadyExists = locations.some(
+                    (loc) =>
+                        loc.name === data.name &&
+                        loc.state === data.state &&
+                        loc.country === data.country
+                );
+
+                if (!alreadyExists) {
+                    setLocations((prev) => [...prev, data]);
+                }
+
+                setError("");
+                setSearchInput("");
+            } else {
+                setError(data.error || "Location not found.");
+            }
+        } catch (err) {
+            console.error("Geocode fetch failed:", err);
+            setError("Failed to fetch location.");
+        }
+    };
+
     return (
         <Container
             maxWidth="lg"
@@ -16,11 +70,12 @@ function Home() {
                 color: 'black'
             }}
         >
-            <Navbar/>
+            <Navbar />
+
             <Box
                 sx={{
                     backgroundColor: '#F7E1B3',
-                    flexGrow: 1, // take remaining space
+                    flexGrow: 1,
                     borderRadius: 3,
                     mt: 2,
                     display: 'flex',
@@ -30,8 +85,53 @@ function Home() {
                     pt: 3.5
                 }}
             >
-                <LocationCard/>
-                <LocationCard/>
+                {/* Search bar */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center",
+                        gap: 2,
+                        mb: 2,
+                        alignSelf: "flex-end",
+                        mr: 4.4
+                    }}
+                >
+                    <TextField
+                        label="Search City..."
+                        placeholder="e.g. Paris"
+                        variant="outlined"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchOutlinedIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                        sx={{
+                            '& .MuiInputBase-input': {
+                                color: 'black',
+                            },
+                        }}
+                    />
+                    <Button variant="contained" onClick={handleSearch}>
+                        <AddOutlinedIcon />
+                    </Button>
+                </Box>
+
+                {/* Error display */}
+                {error && (
+                    <Typography color="error" textAlign="center">
+                        {error}
+                    </Typography>
+                )}
+
+                {/* Render location cards */}
+                {locations.map((loc, index) => (
+                    <LocationCard key={index} location={loc} />
+                ))}
             </Box>
         </Container>
     );
