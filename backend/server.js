@@ -1,7 +1,3 @@
-/*
-    file for fetching from API
-*/
-
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -9,10 +5,10 @@ const axios = require('axios');
 const app = express();
 const PORT = 3001;
 
-app.use(cors()); // allow frontend to connect to this server
+app.use(cors());
 app.use(express.json());
 
-// route to geocode a city name to lat/long
+// Route to geocode a city name to lat/long (returns best match only)
 app.get('/api/geocode', async (req, res) => {
     const { name } = req.query;
     if (!name) return res.status(400).json({ error: 'City name is required' });
@@ -27,7 +23,7 @@ app.get('/api/geocode', async (req, res) => {
             return res.status(404).json({ error: 'No matching location found' });
         }
 
-        const location = results[0] // get best match
+        const location = results[0]; // Return best match
         res.json({
             name: location.name,
             state: location.admin1,
@@ -41,7 +37,7 @@ app.get('/api/geocode', async (req, res) => {
     }
 });
 
-// route to fetch weather using lat/long
+// Route to fetch weather using lat/long
 app.get('/api/weather', async (req, res) => {
     const { latitude, longitude } = req.query;
 
@@ -62,6 +58,36 @@ app.get('/api/weather', async (req, res) => {
     } catch (error) {
         console.error('Error fetching weather:', error.message);
         res.status(500).json({ error: 'Failed to fetch weather data' });
+    }
+});
+
+// Route to fetch autocomplete suggestions (multiple matches)
+app.get('/api/geocode/suggestions', async (req, res) => {
+    const { name } = req.query;
+    if (!name) return res.status(400).json({ error: 'City name is required' });
+
+    try {
+        const response = await axios.get('https://geocoding-api.open-meteo.com/v1/search', {
+            params: { name }
+        });
+
+        const results = response.data.results;
+        if (!results || results.length === 0) {
+            return res.status(404).json({ error: 'No matching locations found' });
+        }
+
+        const locations = results.map(loc => ({
+            name: loc.name,
+            state: loc.admin1,
+            country: loc.country,
+            latitude: loc.latitude,
+            longitude: loc.longitude
+        }));
+
+        res.json(locations);
+    } catch (error) {
+        console.error('Suggestion fetch error:', error.message);
+        res.status(500).json({ error: 'Failed to fetch location suggestions' });
     }
 });
 
