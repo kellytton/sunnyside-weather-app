@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import { getWeatherDescription } from "../utils/weatherUtils";
+import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
 function LocationCard({ location }) {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const { unit } = useTemperatureUnit();
 
     useEffect(() => {
         const fetchWeather = async () => {
@@ -22,6 +25,16 @@ function LocationCard({ location }) {
 
         fetchWeather();
     }, [location]);
+
+    const getTemperature = () => {
+        if (!weather) return null;
+        const tempC = weather.temperature;
+        return unit === "fahrenheit"
+            ? Math.round((tempC * 9) / 5 + 32)
+            : Math.round(tempC);
+    };
+
+    const unitSymbol = unit === "fahrenheit" ? "°F" : "°C";
 
     return (
         <Box
@@ -57,7 +70,7 @@ function LocationCard({ location }) {
 
                 {/* Right: temperature */}
                 <Typography variant="h4">
-                    {loading ? "..." : `${Math.round(weather?.temperature)}°`}
+                    {loading ? "..." : `${getTemperature()}${unitSymbol}`}
                 </Typography>
             </Box>
 

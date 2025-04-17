@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 import Navbar from "../components/navbar";
 import LocationCard from "../components/LocationCard";
+import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
 // MUI icons
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -22,6 +23,8 @@ function Home() {
             longitude: -80.1918
         }
     ]);
+
+    const { unit, toggleUnit } = useTemperatureUnit();
 
     const handleSearch = async () => {
         const trimmed = searchInput.trim();
@@ -165,7 +168,12 @@ function Home() {
                     {/* Dark Mode and Light Mode */}
                     <button className="toggle-buttons">M</button>
                     {/* Celsius and Fahrenheit */}
-                    <button className="toggle-buttons">T</button>
+                    <button
+                        className="toggle-buttons"
+                        onClick={toggleUnit}
+                    >
+                        {unit === "fahrenheit" ? "°F" : "°C"}
+                    </button>
                 </Box>
             </Box>
         </Container>

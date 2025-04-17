@@ -4,11 +4,14 @@ import './index.css'
 import App from './App.jsx'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
+import { TemperatureUnitProvider } from './hooks/useTemperatureUnit'; // ⬅️ import it
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <TemperatureUnitProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </TemperatureUnitProvider>
   </StrictMode>,
 )
