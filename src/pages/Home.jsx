@@ -31,10 +31,7 @@ function Home() {
             const response = await fetch(`http://localhost:3001/api/geocode?name=${encodeURIComponent(trimmed)}`);
             const data = await response.json();
 
-            console.log("Geocode response:", data); // Debug
-
             if (response.ok) {
-                // Check if location already exists
                 const alreadyExists = locations.some(
                     (loc) =>
                         loc.name === data.name &&
@@ -80,10 +77,11 @@ function Home() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '20px',
                     pt: 3.5,
                     pb: 3.5,
-                    mb: 2
+                    px: 0,
+                    mb: 2,
+                    overflow: 'hidden',
                 }}
             >
                 {/* Search Feature */}
@@ -129,10 +127,25 @@ function Home() {
                     </Typography>
                 )}
 
-                {/* Render location cards */}
-                {locations.map((loc, index) => (
-                    <LocationCard key={index} location={loc} />
-                ))}
+                {/* Scrollable, Centered Location Cards */}
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                        width: '100%',
+                        overflowY: 'auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '20px',
+                        px: 4.4,
+                        pt: 2,
+                        pb: 2
+                    }}
+                >
+                    {locations.map((loc, index) => (
+                        <LocationCard key={index} location={loc} />
+                    ))}
+                </Box>
 
                 {/* Toggle Buttons */}
                 <Box

@@ -34,6 +34,8 @@ function LocationCard({ location }) {
                 px: '1.2rem',
                 borderRadius: '8px',
                 boxSizing: 'border-box',
+                pb: 2,
+                pt: 2
             }}
             className="glass"
         >
