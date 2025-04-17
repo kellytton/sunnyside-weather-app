@@ -100,6 +100,7 @@ function Home() {
                         label="Search City..."
                         placeholder="e.g. Paris"
                         variant="outlined"
+                        size="small"
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                         InputProps={{
@@ -115,7 +116,10 @@ function Home() {
                             },
                         }}
                     />
-                    <Button variant="contained" onClick={handleSearch}>
+                    <Button
+                        variant="contained"
+                        onClick={handleSearch}
+                    >
                         <AddOutlinedIcon />
                     </Button>
                 </Box>
