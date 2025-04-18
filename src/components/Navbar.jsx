@@ -23,25 +23,45 @@ function Navbar() {
             className="drag"
         >
             {/* Title - Left */}
-            <Typography variant="h1">sunnyside</Typography>
+            <Typography variant="h1"
+                sx={(theme) => ({
+                    color: theme.palette.text.primary
+                })}
+            >
+                sunnyside
+            </Typography>
 
             {/* Centered Nav */}
             <Box
-                sx={{
+                sx={(theme) => ({
                     position: 'absolute',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     display: 'flex',
                     gap: "30px",
-                    backgroundColor: '#F7E1B3'
-                }}
+                    backgroundColor: theme.palette.background.paper,
+                })}
                 className="nav"
             >
                 <a href="Home" className="nav-buttons no-drag">
-                    <Typography variant="h3">Home</Typography>
+                    <Typography
+                        variant="h3"
+                        sx={(theme) => ({
+                            color: theme.palette.text.primary
+                        })}
+                    >
+                        Home
+                    </Typography>
                 </a>
                 <a href="Forecast" className="nav-buttons no-drag">
-                    <Typography variant="h3">Forecast</Typography>
+                    <Typography
+                        variant="h3"
+                        sx={(theme) => ({
+                            color: theme.palette.text.primary
+                        })}
+                    >
+                        Forecast
+                    </Typography>
                 </a>
             </Box>
 

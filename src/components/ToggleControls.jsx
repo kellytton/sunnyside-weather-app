@@ -1,7 +1,7 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
-function ToggleControls({ unit, toggleUnit }) {
+function ToggleControls({ unit, toggleUnit, toggleMode }) {
     return (
         <Box
             sx={{
@@ -13,13 +13,21 @@ function ToggleControls({ unit, toggleUnit }) {
                 pt: 2
             }}
         >
-            <button className="toggle-buttons">M</button>
-            <button
-                className="toggle-buttons"
+            <Button
+                variant="contained"
+                onClick={toggleMode}
+                sx={{ minWidth: 36 }}
+            >
+                🌓
+            </Button>
+
+            <Button
+                variant="contained"
                 onClick={toggleUnit}
+                sx={{ minWidth: 48 }}
             >
                 {unit === "fahrenheit" ? "°F" : "°C"}
-            </button>
+            </Button>
         </Box>
     );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Box } from "@mui/material";
 import Navbar from "../components/navbar";
-import LocationCard from "../components/LocationCard";
+import ToggleControls from "../components/ToggleControls";
 
 function Forecast() {
     return (
@@ -30,6 +30,18 @@ function Forecast() {
                     pt: 3.5
                 }}
             >
+                {/* Current Weather Block */}
+                <Box>
+
+                </Box>
+                {/* Weekly Forecast */}
+                <Box>
+                    {/* Week Block */}
+                    <Box>
+                        
+                    </Box>
+                    <ToggleControls unit={unit} toggleUnit={toggleUnit} />
+                </Box>
             </Box>
         </Container>
     );

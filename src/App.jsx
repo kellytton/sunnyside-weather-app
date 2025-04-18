@@ -1,12 +1,8 @@
-import './App.css'
+import './App.css';
 import Home from './pages/home';
 
-function App() {
-  return (
-    <>
-      <Home/>
-    </>
-  );
+function App({ toggleMode }) {
+  return <Home toggleMode={toggleMode} />;
 }
 
 export default App;

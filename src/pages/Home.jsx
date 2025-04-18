@@ -11,7 +11,7 @@ import LocationList from "../components/LocationList";
 import SearchBar from "../components/SearchBar";
 import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
-function Home() {
+function Home({ toggleMode }) {
     const [locations, setLocations] = useState([
         {
             name: "Miami",
@@ -55,8 +55,8 @@ function Home() {
             <Navbar />
 
             <Box
-                sx={{
-                    backgroundColor: '#F7E1B3',
+                sx={(theme) => ({
+                    backgroundColor: theme.palette.background.paper,
                     flexGrow: 1,
                     borderRadius: 3,
                     mt: 2,
@@ -68,7 +68,7 @@ function Home() {
                     px: 0,
                     mb: 2,
                     overflow: 'hidden',
-                }}
+                })}
             >
                 <SearchBar onLocationSelect={handleAddLocation} />
 
@@ -80,7 +80,7 @@ function Home() {
 
                 <LocationList locations={locations} />
 
-                <ToggleControls unit={unit} toggleUnit={toggleUnit} />
+                <ToggleControls unit={unit} toggleUnit={toggleUnit} toggleMode={toggleMode} />
             </Box>
         </Container>
     );

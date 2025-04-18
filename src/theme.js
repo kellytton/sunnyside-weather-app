@@ -1,9 +1,42 @@
 import { createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
+const getDesignTokens = (mode) => ({
+    palette: {
+        mode,
+        primary: {
+            main: '#D8901E', // Button and accent color
+            contrastText: '#fff',
+        },
+        ...(mode === 'light'
+        ? {
+            background: {
+                default: '#EBA22F', // main container color
+                paper: '#F7E1B3',   // inner box color
+            },
+            text: {
+                primary: '#000000',
+                secondary: '#3B2418',
+            },
+            custom: {
+                tertiary: '#EFB978', // toggle button color
+            },
+            }
+        : {
+            background: {
+                default: '#3B2418',  // dark main
+                paper: '#5E3F32',    // dark secondary
+            },
+            text: {
+                primary: '#FFFFFF',
+                secondary: '#F7E1B3',
+            },
+            custom: {
+                tertiary: '#917A70', // dark toggle button color
+            },
+        }),
+    },
     typography: {
         fontFamily: 'Karla, sans-serif',
-
         h1: {
             fontFamily: 'Inria Serif, serif',
             fontSize: '36px',
@@ -26,12 +59,6 @@ const theme = createTheme({
         },
         button: {
             fontFamily: 'Karla, sans-serif',
-        },
-    },
-    palette: {
-        primary: {
-            main: '#D8901E', // Orange tone for buttons and focused textfields
-            contrastText: '#fff',
         },
     },
     components: {
@@ -69,4 +96,4 @@ const theme = createTheme({
     },
 });
 
-export default theme;
+export default getDesignTokens;

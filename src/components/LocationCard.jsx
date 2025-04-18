@@ -62,14 +62,31 @@ function LocationCard({ location }) {
             >
                 {/* Left: icon + city */}
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <PlaceOutlinedIcon style={{ width: 24, height: 24, marginRight: 8 }} />
-                    <Typography variant="h4">
+                <PlaceOutlinedIcon
+                    sx={(theme) => ({
+                        width: 24,
+                        height: 24,
+                        mr: 1, // you can also use spacing units (1 = 8px)
+                        color: theme.palette.text.primary,
+                    })}
+                />
+                    <Typography 
+                        variant="h4"
+                        sx={(theme) => ({
+                            color: theme.palette.text.primary
+                        })}
+                    >
                         {location.name}, {location.state || location.country}
                     </Typography>
                 </Box>
 
                 {/* Right: temperature */}
-                <Typography variant="h4">
+                <Typography 
+                        variant="h4"
+                        sx={(theme) => ({
+                            color: theme.palette.text.primary
+                        })}
+                >
                     {loading ? "..." : `${getTemperature()}${unitSymbol}`}
                 </Typography>
             </Box>
@@ -77,7 +94,12 @@ function LocationCard({ location }) {
             {/* Second row: weather description */}
             <Box sx={{ mt: 0.5, display: 'flex' }}>
                 <Box sx={{ width: 32, mr: 0.5 }} /> {/* spacer to align under icon */}
-                <Typography variant="subtitle1">
+                <Typography 
+                        variant="subtitle"
+                        sx={(theme) => ({
+                            color: theme.palette.text.primary
+                        })}
+                >
                     {loading
                         ? "Fetching weather..."
                         : getWeatherDescription(weather?.weathercode)}
