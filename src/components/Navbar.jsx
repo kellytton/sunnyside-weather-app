@@ -1,15 +1,25 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import {
+    Box,
+    Typography,
+    IconButton,
+    Tooltip
+} from "@mui/material";
+import MinimizeIcon from '@mui/icons-material/Minimize';
+import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from "@mui/material/styles";
 
 function Navbar() {
-    // Handle minimize action
-    const handleMinimize = () => {
-        window.electron.minimizeApp(); // Minimize the window
+    const theme = useTheme();
+
+    const handleMinimize = (e) => {
+        e.preventDefault();
+        window.electron.minimizeApp();
     };
 
-    // Handle close action
-    const handleClose = () => {
-        window.electron.closeApp(); // Close the window
+    const handleClose = (e) => {
+        e.preventDefault();
+        window.electron.closeApp();
     };
 
     return (
@@ -19,36 +29,36 @@ function Navbar() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 position: 'relative',
+                padding: '8px 16px',
+                backgroundColor: theme.palette.background.default,
             }}
             className="drag"
         >
             {/* Title - Left */}
             <Typography variant="h1"
-                sx={(theme) => ({
+                sx={{
                     color: theme.palette.text.primary
-                })}
+                }}
             >
                 sunnyside
             </Typography>
 
             {/* Centered Nav */}
             <Box
-                sx={(theme) => ({
+                sx={{
                     position: 'absolute',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     display: 'flex',
                     gap: "30px",
                     backgroundColor: theme.palette.background.paper,
-                })}
+                }}
                 className="nav"
             >
                 <a href="Home" className="nav-buttons no-drag">
                     <Typography
                         variant="h3"
-                        sx={(theme) => ({
-                            color: theme.palette.text.primary
-                        })}
+                        sx={{ color: theme.palette.text.primary }}
                     >
                         Home
                     </Typography>
@@ -56,9 +66,7 @@ function Navbar() {
                 <a href="Forecast" className="nav-buttons no-drag">
                     <Typography
                         variant="h3"
-                        sx={(theme) => ({
-                            color: theme.palette.text.primary
-                        })}
+                        sx={{ color: theme.palette.text.primary }}
                     >
                         Forecast
                     </Typography>
@@ -69,15 +77,46 @@ function Navbar() {
             <Box
                 sx={{
                     display: 'flex',
-                    gap: '15px'
+                    gap: 1
                 }}
             >
-                <a href="" className="minimize-button no-drag" onClick={handleMinimize}>
-                    <p className="minimize-button-text">_</p>
-                </a>
-                <a href="" className="exit-button no-drag" onClick={handleClose}>
-                    <p className="exit-button-text">X</p>
-                </a>
+                <Tooltip title="Minimize">
+                    <IconButton
+                        onClick={handleMinimize}
+                        className="no-drag"
+                        size="small"
+                        sx={{
+                            height: '36px',
+                            width: '36px',
+                            color: theme.palette.text.primary,
+                            backgroundColor: theme.palette.background.paper,
+                            '&:hover': {
+                                backgroundColor: theme.palette.custom.windowButtonHover,
+                            }
+                        }}
+                    >
+                        <MinimizeIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Close">
+                    <IconButton
+                        onClick={handleClose}
+                        className="no-drag"
+                        size="small"
+                        sx={{
+                            height: '36px',
+                            width: '36px',
+                            color: theme.palette.text.primary,
+                            backgroundColor: theme.palette.background.paper,
+                            '&:hover': {
+                                backgroundColor: theme.palette.error.main,
+                                color: theme.palette.getContrastText(theme.palette.error.main),
+                            }
+                        }}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
             </Box>
         </Box>
     );

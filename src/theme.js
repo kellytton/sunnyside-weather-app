@@ -23,6 +23,7 @@ const getDesignTokens = (mode) => ({
                 suggestions: '#fff6e5',
                 suggestionsDivider: '#e0c896',
                 suggestionsHover: '#F7E1B3',
+                windowButtonHover: '#c4ad7e',
             },
             }
         : {
