@@ -1,9 +1,16 @@
 import React from "react";
-import { Container, Box } from "@mui/material";
+import React, { useState } from "react";
+import {
+    Container,
+    Box,
+    Typography
+} from "@mui/material";
+
 import Navbar from "../components/navbar";
 import ToggleControls from "../components/ToggleControls";
+import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
-function Forecast() {
+function Forecast({ unit, toggleUnit, toggleMode }) {
     return (
         <Container
             maxWidth="lg"
@@ -17,31 +24,24 @@ function Forecast() {
             }}
         >
             <Navbar/>
+            {/* Current Weather Block */}
             <Box
-                sx={{
-                    backgroundColor: '#F7E1B3',
-                    flexGrow: 1, // take remaining space
-                    borderRadius: 3,
-                    mt: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '20px',
-                    pt: 3.5
-                }}
+                sx={(theme) => ({
+                    backgroundColor: theme.palette.background.paper,
+                    width: '770px',
+                    height: '610px'
+                })}
             >
-                {/* Current Weather Block */}
-                <Box>
-
-                </Box>
-                {/* Weekly Forecast */}
-                <Box>
-                    {/* Week Block */}
-                    <Box>
-                        
-                    </Box>
-                    <ToggleControls unit={unit} toggleUnit={toggleUnit} />
-                </Box>
+            </Box>
+            {/* Weekly Forecast */}
+            <Box
+                sx={(theme) => ({
+                    backgroundColor: theme.palette.background.paper,
+                    width: '420px',
+                    height: '610px',
+                })}
+            >
+                <ToggleControls unit={unit} toggleUnit={toggleUnit} />
             </Box>
         </Container>
     );
