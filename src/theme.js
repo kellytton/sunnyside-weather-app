@@ -3,12 +3,13 @@ import { createTheme } from '@mui/material/styles';
 const getDesignTokens = (mode) => ({
     palette: {
         mode,
-        primary: {
-            main: '#D8901E', // Button and accent color
-            contrastText: '#fff',
-        },
         ...(mode === 'light'
         ? {
+            primary: {
+                main: '#EFB978', // button and accent color
+                contrastText: '#fff',
+                accent: "#D8901E",
+            },
             background: {
                 default: '#EBA22F', // main container color
                 paper: '#F7E1B3',   // inner box color
@@ -19,19 +20,30 @@ const getDesignTokens = (mode) => ({
             },
             custom: {
                 tertiary: '#EFB978', // toggle button color
+                suggestions: '#fff6e5',
+                suggestionsDivider: '#e0c896',
+                suggestionsHover: '#F7E1B3',
             },
             }
         : {
+            primary: {
+                main: '#917A70', // dark button and accent color
+                contrastText: '#fff',
+                accent: "#B88C7A"
+            },
             background: {
                 default: '#3B2418',  // dark main
                 paper: '#5E3F32',    // dark secondary
             },
             text: {
                 primary: '#FFFFFF',
-                secondary: '#F7E1B3',
+                secondary: '#F9F4F2',
             },
             custom: {
                 tertiary: '#917A70', // dark toggle button color
+                suggestions: '#795E53',
+                suggestionsDivider: '#3B2418',
+                suggestionsHover: '#5E3F32',
             },
         }),
     },
@@ -64,33 +76,33 @@ const getDesignTokens = (mode) => ({
     components: {
         MuiTextField: {
             styleOverrides: {
-                root: {
+                root: ({ theme }) => ({
                     '& label.Mui-focused': {
-                        color: '#D8901E',
+                        color: theme.palette.primary.accent,
                     },
                     '& .MuiOutlinedInput-root': {
                         '& fieldset': {
-                            borderColor: '#D8901E',
+                            borderColor: theme.palette.primary.accent,
                         },
                         '&:hover fieldset': {
-                            borderColor: '#D8901E',
+                            borderColor: theme.palette.primary.accent,
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: '#D8901E',
+                            borderColor: theme.palette.primary.accent,
                         },
                     },
-                },
+                }),
             },
         },
         MuiButton: {
             styleOverrides: {
-                root: {
-                    backgroundColor: '#D8901E',
-                    color: '#fff',
+                root: ({ theme }) => ({
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.text.primary,
                     '&:hover': {
-                        backgroundColor: '#c0781b',
+                        backgroundColor: theme.palette.primary.dark,
                     },
-                },
+                }),
             },
         },
     },

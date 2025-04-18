@@ -8,11 +8,13 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { useTheme } from '@mui/material/styles'; // import theme hook
 
 function SearchBar({ onLocationSelect }) {
     const [searchInput, setSearchInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(null);
+    const theme = useTheme(); // get theme
 
     useEffect(() => {
         const fetchSuggestions = async () => {
@@ -81,15 +83,25 @@ function SearchBar({ onLocationSelect }) {
                             flexDirection: 'column',
                             alignItems: 'flex-start',
                             padding: '8px 12px',
-                            backgroundColor: '#fff6e5', // soft warm tan
-                            borderBottom: '1px solid #e0c896',
+                            backgroundColor: theme.palette.custom.suggestions,
+                            borderBottom: `1px solid ${theme.palette.custom.suggestionsDivider}`,
                             '&:hover': {
-                                backgroundColor: '#f3ddb3',
-                            }
+                                backgroundColor: theme.palette.custom.suggestionsHover
+                            },
                         }}
                     >
-                        <span style={{ fontWeight: 600 }}>{option.name}</span>
-                        <span style={{ fontSize: 12, color: '#555' }}>
+                        <span style={{
+                            fontWeight: 600,
+                            color: theme.palette.text.primary,
+                            fontFamily: 'Inria Serif, sans-serif'
+                        }}>
+                            {option.name}
+                        </span>
+                        <span style={{
+                            fontSize: 12,
+                            color: theme.palette.text.secondary,
+                            fontFamily: 'Karla, sans-serif'
+                        }}>
                             {option.state ? `${option.state}, ` : ""}{option.country}
                         </span>
                     </Box>
@@ -100,33 +112,40 @@ function SearchBar({ onLocationSelect }) {
                             borderRadius: 2,
                             boxShadow: 3,
                             mt: 1,
-                            backgroundColor: '#fff6e5', // same soft tan as list items
-                            color: 'black',
+                            backgroundColor: theme.palette.custom.suggestions,
+                            color: theme.palette.text.primary,
                             zIndex: 1300,
                         }
                     },
                     paper: {
                         sx: {
-                            backgroundColor: '#fff6e5', // match with your theme
+                            backgroundColor: theme.palette.custom.suggestions,
                         }
                     }
                 }}
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Search City..."
+                        label="Search City"
                         placeholder="e.g. Paris"
+                        InputLabelProps={{
+                            sx: {
+                                fontSize: '1rem',
+                                fontFamily: 'Inria Serif, sans-serif'
+                            },
+                        }}
                         InputProps={{
                             ...params.InputProps,
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <SearchOutlinedIcon />
+                                    <SearchOutlinedIcon sx={{ color: theme.palette.text.primary }} />
                                 </InputAdornment>
                             ),
                         }}
                         sx={{
                             '& .MuiInputBase-input': {
-                                color: 'black',
+                                color: theme.palette.text.primary,
+                                fontFamily: "Inria Serif, sans-serif"
                             },
                         }}
                     />
