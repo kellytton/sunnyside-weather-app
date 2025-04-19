@@ -1,12 +1,68 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const db = require('./database')
 
 const app = express();
 const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
+
+// GET preferences
+app.get('/api/preferences', (req, res) => {
+    const prefs = db.prepare('SELECT * FROM preferences WHERE id = 1').get();
+    res.json(prefs);
+});
+
+// PATCH preferences
+app.patch('/api/preferences', (req, res) => {
+    const { unit, mode } = req.body;
+    if (!unit && !mode) return res.status(400).json({ error: 'No valid fields provided' });
+
+    const current = db.prepare('SELECT * FROM preferences WHERE id = 1').get();
+    const updated = {
+        unit: unit || current.unit,
+        mode: mode || current.mode
+    };
+
+    db.prepare('UPDATE preferences SET unit = ?, mode = ? WHERE id = 1').run(updated.unit, updated.mode);
+    res.json(updated);
+});
+
+// GET all locations
+app.get('/api/locations', (req, res) => {
+    const locations = db.prepare('SELECT * FROM locations').all();
+    res.json(locations);
+});
+
+// POST new location
+app.post('/api/locations', (req, res) => {
+    const { name, state, country, latitude, longitude } = req.body;
+    if (!name || !latitude || !longitude || !country) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    db.prepare(`
+        INSERT INTO locations (name, state, country, latitude, longitude)
+        VALUES (?, ?, ?, ?, ?)
+    `).run(name, state, country, latitude, longitude);
+
+    res.status(201).json({ message: 'Location added successfully' });
+});
+
+// PATCH selected location
+app.patch('/api/locations/select', (req, res) => {
+    const { id } = req.body;
+    if (!id) return res.status(400).json({ error: 'Location ID required' });
+
+    // Unselect all
+    db.prepare(`UPDATE locations SET selected = 0`).run();
+    // Select one
+    db.prepare(`UPDATE locations SET selected = 1 WHERE id = ?`).run(id);
+
+    res.json({ message: 'Selected location updated' });
+});
 
 // Route to geocode a city name to lat/long (returns best match only)
 app.get('/api/geocode', async (req, res) => {

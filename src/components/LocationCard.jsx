@@ -66,7 +66,7 @@ function LocationCard({ location }) {
                     sx={(theme) => ({
                         width: 24,
                         height: 24,
-                        mr: 1, // you can also use spacing units (1 = 8px)
+                        mr: 1,
                         color: theme.palette.text.primary,
                     })}
                 />
