@@ -72,6 +72,7 @@ function Home({ toggleMode }) {
             >
                 <SearchBar onLocationSelect={handleAddLocation} />
 
+                {/* Error on Search */}
                 {error && (
                     <Typography color="error" textAlign="center">
                         {error}

@@ -3,14 +3,14 @@ const cors = require('cors');
 const axios = require('axios');
 const db = require('./database')
 
-const app = express();
+const app = express(); // Express application
 const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
 
 // GET preferences
-app.get('/api/preferences', (req, res) => {
+app.get('/api/preferences', (req, res) => { // request object, response object
     const prefs = db.prepare('SELECT * FROM preferences WHERE id = 1').get();
     res.json(prefs);
 });
