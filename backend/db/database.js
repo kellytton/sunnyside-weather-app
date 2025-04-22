@@ -32,7 +32,7 @@ if (!existingPreferences) {
 // create locations table
 db.prepare(`
     CREATE TABLE IF NOT EXISTS locations (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         state TEXT,
         country TEXT NOT NULL,

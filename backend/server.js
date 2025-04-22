@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const db = require('./database')
+const db = require('./db/database')
 
 const app = express(); // Express application
 const PORT = 3001;
@@ -42,11 +42,13 @@ app.post('/api/locations', (req, res) => {
     if (!name || !latitude || !longitude || !country) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
-
+    
     db.prepare(`
         INSERT INTO locations (name, state, country, latitude, longitude)
         VALUES (?, ?, ?, ?, ?)
-    `).run(name, state, country, latitude, longitude);
+    `).run(name, state || null, country, latitude, longitude); // ensure null for optional 'state'
+
+    console.log(`Added new location: ${name}, ${state || 'N/A'}, ${country}`);
 
     res.status(201).json({ message: 'Location added successfully' });
 });
@@ -60,6 +62,15 @@ app.patch('/api/locations/select', (req, res) => {
     db.prepare(`UPDATE locations SET selected = 0`).run();
     // Select one
     db.prepare(`UPDATE locations SET selected = 1 WHERE id = ?`).run(id);
+
+    // Fetch the selected location's details
+    const location = db.prepare(`SELECT name, state, country FROM locations WHERE id = ?`).get(id);
+
+    if (location) {
+        console.log(`New selected location: ${location.name}, ${location.state || 'N/A'}, ${location.country}`);
+    } else {
+        console.log(`Selected location with ID ${id} not found.`);
+    }
 
     res.json({ message: 'Selected location updated' });
 });

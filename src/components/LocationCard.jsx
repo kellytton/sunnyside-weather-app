@@ -4,7 +4,7 @@ import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import { getWeatherDescription } from "../utils/weatherUtils";
 import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
-function LocationCard({ location }) {
+function LocationCard({ location, onSelect, isSelected }) {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,8 @@ function LocationCard({ location }) {
 
     return (
         <Box
-            sx={{
+            onClick={onSelect}
+            sx={(theme) => ({
                 width: '1130px',
                 height: '100px',
                 display: 'flex',
@@ -48,8 +49,13 @@ function LocationCard({ location }) {
                 borderRadius: '8px',
                 boxSizing: 'border-box',
                 pb: 2,
-                pt: 2
-            }}
+                pt: 2,
+                cursor: "pointer",
+                "&:hover": { // for visual feedback
+                    boxShadow: 3,
+                    backgroundColor: theme.palette.custom.locationCardHover,
+                },
+            })}
             className="glass"
         >
             {/* First row: icon + city on left, temp on right */}
@@ -61,31 +67,43 @@ function LocationCard({ location }) {
                 }}
             >
                 {/* Left: icon + city */}
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <PlaceOutlinedIcon
-                    sx={(theme) => ({
-                        width: 24,
-                        height: 24,
-                        mr: 1,
-                        color: theme.palette.text.primary,
-                    })}
-                />
-                    <Typography 
-                        variant="h4"
-                        sx={(theme) => ({
-                            color: theme.palette.text.primary
-                        })}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: 24,
+                            height: 24,
+                            mr: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
                     >
+                        {isSelected && (
+                            <PlaceOutlinedIcon
+                                sx={(theme) => ({
+                                    width: 24,
+                                    height: 24,
+                                    color: theme.palette.text.primary,
+                                })}
+                            />
+                        )}
+                    </Box>
+                    <Typography variant="h4" sx={(theme) => ({ color: theme.palette.text.primary })}>
                         {location.name}, {location.state || location.country}
                     </Typography>
                 </Box>
 
                 {/* Right: temperature */}
                 <Typography 
-                        variant="h4"
-                        sx={(theme) => ({
-                            color: theme.palette.text.primary
-                        })}
+                    variant="h4"
+                    sx={(theme) => ({
+                        color: theme.palette.text.primary
+                    })}
                 >
                     {loading ? "..." : `${getTemperature()}${unitSymbol}`}
                 </Typography>
@@ -95,10 +113,10 @@ function LocationCard({ location }) {
             <Box sx={{ mt: 0.5, display: 'flex' }}>
                 <Box sx={{ width: 32, mr: 0.5 }} /> {/* spacer to align under icon */}
                 <Typography 
-                        variant="subtitle"
-                        sx={(theme) => ({
-                            color: theme.palette.text.primary
-                        })}
+                    variant="subtitle"
+                    sx={(theme) => ({
+                        color: theme.palette.text.primary
+                    })}
                 >
                     {loading
                         ? "Fetching weather..."

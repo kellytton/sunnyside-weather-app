@@ -24,6 +24,7 @@ const getDesignTokens = (mode) => ({
                 suggestionsDivider: '#e0c896',
                 suggestionsHover: '#F7E1B3',
                 windowButtonHover: '#c4ad7e',
+                locationCardHover: '#F4C478',
             },
             }
         : {
@@ -45,6 +46,7 @@ const getDesignTokens = (mode) => ({
                 suggestions: '#795E53',
                 suggestionsDivider: '#3B2418',
                 suggestionsHover: '#5E3F32',
+                locationCardHover: '#6A3D26',
             },
         }),
     },
