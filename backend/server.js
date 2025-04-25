@@ -27,6 +27,13 @@ app.patch('/api/preferences', (req, res) => {
     };
 
     db.prepare('UPDATE preferences SET unit = ?, mode = ? WHERE id = 1').run(updated.unit, updated.mode);
+
+    if (current.unit !== updated.unit) {
+        console.log(`✅ Temperature unit updated: ${current.unit} → ${updated.unit}`);
+    }
+    if (current.mode !== updated.mode) {
+        console.log(`🌓 Theme mode updated: ${current.mode} → ${updated.mode}`);
+    }
     res.json(updated);
 });
 
