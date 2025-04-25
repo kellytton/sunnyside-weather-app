@@ -1,24 +1,29 @@
 import React from "react";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import Brightness4Icon from '@mui/icons-material/Brightness4'; // Moon/Sun toggle icon
-import ThermostatIcon from '@mui/icons-material/Thermostat';   // Temp unit toggle
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
 import { useTheme } from '@mui/material/styles';
 
-function ToggleControls({ unit, toggleUnit, toggleMode }) {
-    const theme = useTheme();
+import { useTemperatureUnit } from '../hooks/useTemperatureUnit';
+import { useThemeMode } from '../hooks/useThemeMode';
+
+function ToggleControls() {
+    const theme = useTheme(); // get current mui theme (light/dark)
+    const { unit, toggleUnit } = useTemperatureUnit(); // access and toggle temperature unit
+    const { toggleMode } = useThemeMode(); // access and toggle theme mode
 
     return (
         <Box
             sx={{
                 display: 'flex',
-                alignSelf: "flex-end",
-                mr: 4.4,
-                gap: 1.5,
-                mt: 'auto',
-                pt: 2
+                alignSelf: "flex-end", // position to the right
+                mr: 4.4,               // right margin
+                gap: 1.5,              // spacing between icons
+                mt: 'auto',            // push to bottom in column layout
+                pt: 2                  // padding on top
             }}
         >
-            {/* Theme Toggle Button */}
+            {/* light/dark mode toggle button */}
             <Tooltip title="Toggle Light/Dark Mode">
                 <IconButton
                     onClick={toggleMode}
@@ -38,7 +43,7 @@ function ToggleControls({ unit, toggleUnit, toggleMode }) {
                 </IconButton>
             </Tooltip>
 
-            {/* Temperature Unit Toggle Button */}
+            {/* temperature unit toggle button */}
             <Tooltip title={`Switch to ${unit === "fahrenheit" ? "Celsius" : "Fahrenheit"}`}>
                 <IconButton
                     onClick={toggleUnit}

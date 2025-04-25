@@ -9,12 +9,10 @@ import Navbar from "../components/navbar";
 import ToggleControls from "../components/ToggleControls";
 import LocationList from "../components/LocationList";
 import SearchBar from "../components/SearchBar";
-import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
-function Home({ toggleMode }) {
+function Home() {
     const [locations, setLocations] = useState([]);
     const [error, setError] = useState("");
-    const { unit, toggleUnit } = useTemperatureUnit();
 
     // fetch locations when the component mounts
     useEffect(() => {
@@ -116,14 +114,14 @@ function Home({ toggleMode }) {
                         alignItems: 'center',  // center the location cards
                         justifyContent: 'flex-start',
                         width: '100%',
-                        pt: 1.8,  // Top padding
-                        pb: 1.8,  // Bottom padding
+                        pt: 1.8, 
+                        pb: 1.8, 
                     }}
                 >
                     <LocationList key={locations.length} locations={locations} />
                 </Box>
 
-                <ToggleControls unit={unit} toggleUnit={toggleUnit} toggleMode={toggleMode} />
+                <ToggleControls/>
             </Box>
         </Container>
     );
