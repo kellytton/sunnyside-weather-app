@@ -43,6 +43,12 @@ app.get('/api/locations', (req, res) => {
     res.json(locations);
 });
 
+// GET selected location
+app.get('/api/locations/select', (req, res) => {
+    const location = db.prepare('SELECT * FROM locations WHERE selected = 1').get();
+    res.json(location);
+});
+
 // POST new location
 app.post('/api/locations', (req, res) => {
     const { name, state, country, latitude, longitude } = req.body;
