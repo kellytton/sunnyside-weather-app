@@ -41,6 +41,9 @@ a {
     font-style: normal;
     display: inline-block;
     transition: transform 0s ease, font-style 0s ease;
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
 
 .nav-buttons:hover {

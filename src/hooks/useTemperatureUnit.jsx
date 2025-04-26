@@ -12,9 +12,9 @@ export const TemperatureUnitProvider = ({ children }) => {
         const fetchPreferences = async () => {
             try {
                 const res = await fetch("http://localhost:3001/api/preferences");
-                const data = await res.json();
+                const data = await res.json(); // parse response into JS obj.
 
-                // only update if the value is valid
+                // update local unit state if valid
                 if (data.unit === "fahrenheit" || data.unit === "celsius") {
                     setUnit(data.unit);
                 }
@@ -22,7 +22,7 @@ export const TemperatureUnitProvider = ({ children }) => {
                 console.error("failed to fetch preferences:", err);
             }
         };
-
+        // run fetchPreferences() only once when component mounts
         fetchPreferences();
     }, []);
 

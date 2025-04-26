@@ -17,15 +17,18 @@ function Main() {
 
   return (
     <StrictMode>
+      {/* apply MUI to entire app through ThemeProvider*/}
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        {/* main app component */}
         <App />
       </ThemeProvider>
     </StrictMode>
   );
 }
 
-// wrap Main in both providers before rendering
+/* wrap Main in both providers before rendering to ensure any child components
+can access theme mode and temperature unit context */
 const Root = () => (
   <ThemeModeProvider>
     <TemperatureUnitProvider>
@@ -34,4 +37,5 @@ const Root = () => (
   </ThemeModeProvider>
 );
 
+// mount to the DOM
 createRoot(document.getElementById('root')).render(<Root/>);

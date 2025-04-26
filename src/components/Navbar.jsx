@@ -9,7 +9,7 @@ import MinimizeIcon from '@mui/icons-material/Minimize';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from "@mui/material/styles";
 
-function Navbar() {
+function Navbar({ setPage }) {
     const theme = useTheme();
 
     const handleMinimize = (e) => {
@@ -35,11 +35,7 @@ function Navbar() {
             className="drag"
         >
             {/* Title - Left */}
-            <Typography variant="h1"
-                sx={{
-                    color: theme.palette.text.primary
-                }}
-            >
+            <Typography variant="h1" sx={{ color: theme.palette.text.primary }}> 
                 sunnyside
             </Typography>
 
@@ -55,22 +51,32 @@ function Navbar() {
                 }}
                 className="nav"
             >
-                <a href="Home" className="nav-buttons no-drag">
+                <button
+                    onClick={() => setPage("home")}
+                    className="nav-buttons no-drag"
+                >
                     <Typography
                         variant="h3"
-                        sx={{ color: theme.palette.text.primary }}
+                        sx={{
+                            color: theme.palette.text.primary,
+                        }}
                     >
                         Home
                     </Typography>
-                </a>
-                <a href="Forecast" className="nav-buttons no-drag">
+                </button>
+                <button
+                    onClick={() => setPage("forecast")}
+                    className="nav-buttons no-drag"
+                >
                     <Typography
                         variant="h3"
-                        sx={{ color: theme.palette.text.primary }}
+                        sx={{
+                            color: theme.palette.text.primary
+                        }}
                     >
                         Forecast
                     </Typography>
-                </a>
+                </button>
             </Box>
 
             {/* Window Buttons - Right */}

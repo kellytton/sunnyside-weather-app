@@ -5,12 +5,12 @@ import {
     Typography
 } from "@mui/material";
 
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import ToggleControls from "../components/ToggleControls";
 import LocationList from "../components/LocationList";
 import SearchBar from "../components/SearchBar";
 
-function Home() {
+function Home({ setPage }) {
     const [locations, setLocations] = useState([]);
     const [error, setError] = useState("");
 
@@ -38,11 +38,9 @@ function Home() {
         );
 
         if (!alreadyExists) {
-            // add to state immediately
             setLocations((prev) => [...prev, location]);
 
             try {
-                // send to backend to add to the database
                 const response = await fetch("http://localhost:3001/api/locations", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -55,7 +53,7 @@ function Home() {
 
                 const res = await fetch("http://localhost:3001/api/locations");
                 const data = await res.json();
-                setLocations(data);  // refresh state to include new location
+                setLocations(data);
             } catch (err) {
                 console.error("Error adding location:", err);
                 setError("Failed to add location");
@@ -77,7 +75,7 @@ function Home() {
                 color: 'black',
             }}
         >
-            <Navbar />
+            <Navbar setPage={setPage} />
 
             <Box
                 sx={(theme) => ({
@@ -91,37 +89,35 @@ function Home() {
                     pt: 3.5,
                     pb: 3.5,
                     px: 0,
-                    mb: 2,
+                    mb: 1,
                     overflow: 'hidden',
                 })}
             >
                 <SearchBar onLocationSelect={handleAddLocation} />
 
-                {/* error on Search */}
                 {error && (
                     <Typography color="error" textAlign="center">
                         {error}
                     </Typography>
                 )}
 
-                {/* make LocationList scrollable when it overflows */}
                 <Box
                     sx={{
                         flexGrow: 1,
-                        overflowY: 'auto',  // make the list scrollable
+                        overflowY: 'auto',
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'center',  // center the location cards
+                        alignItems: 'center',
                         justifyContent: 'flex-start',
                         width: '100%',
-                        pt: 1.8, 
-                        pb: 1.8, 
+                        pt: 1.8,
+                        pb: 1.8,
                     }}
                 >
                     <LocationList key={locations.length} locations={locations} />
                 </Box>
 
-                <ToggleControls/>
+                <ToggleControls />
             </Box>
         </Container>
     );
