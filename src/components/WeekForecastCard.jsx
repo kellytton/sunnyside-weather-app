@@ -1,21 +1,22 @@
 import { Box, Typography } from "@mui/material";
 
-function WeekForecastCard() {
-    return(
+function WeekForecastCard({ day, high, low }) {
+    return (
         <Box
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: '70px',
-                width: '340px'
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "62px",
+                width: "340px",
+                backgroundColor: '',
+                px: 2,
             }}
+            className='forecast-glass'
         >
-            <Typography>
-                Sunday
-            </Typography>
-            <Typography>
-                88° / 66°
+            <Typography variant="h6">{day}</Typography>
+            <Typography variant="h6">
+                {high}° / {low}°
             </Typography>
         </Box>
     );

@@ -171,6 +171,34 @@ app.get('/api/geocode/suggestions', async (req, res) => {
     }
 });
 
+// Route to fetch full forecast: current + daily for selected location
+app.get('/api/forecast', async (req, res) => {
+    const location = db.prepare('SELECT * FROM locations WHERE selected = 1').get();
+
+    if (!location) {
+        return res.status(404).json({ error: 'No selected location found' });
+    }
+
+    const { latitude, longitude } = location;
+
+    try {
+        const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
+            params: {
+                latitude,
+                longitude,
+                current_weather: true,
+                daily: 'temperature_2m_max,temperature_2m_min',
+                timezone: 'auto'
+            }
+        });
+
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching forecast:', error.message);
+        res.status(500).json({ error: 'Failed to fetch forecast' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Backend server is listening on http://localhost:${PORT}`);
 });

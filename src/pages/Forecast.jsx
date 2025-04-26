@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material/styles";
 
 import Navbar from "../components/Navbar";
 import ToggleControls from "../components/ToggleControls";
+import WeekForecastList from "../components/WeekForecastList";
 import stateAbbreviations from "../utils/stateAbbreviations";
 
 import darkModeBg from "../assets/darkmode.png";
@@ -20,6 +21,7 @@ function Forecast({ setPage }) {
     const [location, setLocation] = useState('');
     const abbreviation = stateAbbreviations[location.state] || location.state;
 
+    // fetch selected location
     useEffect(() => {
         const fetchSelectedLocation = async () => {
             try {
@@ -34,6 +36,14 @@ function Forecast({ setPage }) {
 
         fetchSelectedLocation();
     }, []);
+
+    // get the day of the week
+    const getDayOfWeek = () => {
+        const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const d = new Date();
+        return weekday[d.getDay()];
+    };
+
     const getFoodSuggestion = (description) => {
         const desc = description.toLowerCase();
         if (desc.includes("clear") || desc.includes("sun")) return "Perfect for a BBQ—grilled ribs and cold drinks under the sun.";
@@ -118,7 +128,7 @@ function Forecast({ setPage }) {
 
                         {/* Bottom Content */}
                         <Box>
-                            <Typography>Saturday in</Typography>
+                            <Typography>{getDayOfWeek()} in</Typography>
                             <Typography
                                 sx={{
                                     fontSize: '36px',
@@ -142,9 +152,10 @@ function Forecast({ setPage }) {
                             p: 2,
                             display: 'flex',
                             flexDirection: 'column',
+                            alignItems: 'center',
                         }}
                     >
-                        {/* Add forecast cards here */}
+                        <WeekForecastList/>
                         <ToggleControls />
                     </Box>
                 </Grid>
