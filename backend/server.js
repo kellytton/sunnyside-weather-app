@@ -88,6 +88,33 @@ app.patch('/api/locations/select', (req, res) => {
     res.json({ message: 'Selected location updated' });
 });
 
+// DELETE a location
+app.delete('/api/locations/:id', (req, res) => {
+    const { id } = req.params;
+    
+    // Ensure that the ID is provided
+    if (!id) {
+        return res.status(400).json({ error: 'Location ID is required' });
+    }
+
+    // Check if the location is currently selected
+    const selectedLocation = db.prepare('SELECT id FROM locations WHERE selected = 1').get();
+    if (selectedLocation && selectedLocation.id === Number(id)) {
+        return res.status(400).json({ error: 'Cannot delete the currently selected location' });
+    }
+
+    // Delete the location with the provided ID
+    const result = db.prepare('DELETE FROM locations WHERE id = ?').run(id);
+
+    // Check if the location was deleted
+    if (result.changes > 0) {
+        console.log(`Deleted location with ID: ${id}`);
+        res.status(200).json({ message: `Location with ID ${id} deleted successfully` });
+    } else {
+        res.status(404).json({ error: `Location with ID ${id} not found` });
+    }
+});
+
 // Route to geocode a city name to lat/long (returns best match only)
 app.get('/api/geocode', async (req, res) => {
     const { name } = req.query;
