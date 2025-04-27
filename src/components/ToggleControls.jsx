@@ -17,9 +17,8 @@ function ToggleControls() {
             sx={{
                 display: 'flex',
                 alignSelf: "flex-end", // position to the right
-                mr: 4.4,               // right margin
                 gap: 1.5,              // spacing between icons
-                mt: 'auto',            // push to bottom in column layout
+                mr: 4.4,               // right margin
                 pt: 2                  // padding on top
             }}
         >

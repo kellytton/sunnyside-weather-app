@@ -33,7 +33,6 @@ body {
 }
 
 .forecast-glass {
-    background: #5E3F32;
     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(20px);
     border-radius: 13px;

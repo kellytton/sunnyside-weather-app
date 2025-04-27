@@ -11,6 +11,7 @@ import Navbar from "../components/Navbar";
 import ToggleControls from "../components/ToggleControls";
 import WeekForecastList from "../components/WeekForecastList";
 import stateAbbreviations from "../utils/stateAbbreviations";
+import { getWeatherDescription, getFoodSuggestion } from "../utils/weatherUtils";
 
 import darkModeBg from "../assets/darkmode.png";
 import lightModeBg from "../assets/lightmode.png";
@@ -20,6 +21,7 @@ function Forecast({ setPage }) {
     const bgImage = theme.palette.mode === "dark" ? darkModeBg : lightModeBg;
     const [location, setLocation] = useState('');
     const abbreviation = stateAbbreviations[location.state] || location.state;
+    const [weather, setWeather] = useState(null);
 
     // fetch selected location
     useEffect(() => {
@@ -42,18 +44,6 @@ function Forecast({ setPage }) {
         const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         const d = new Date();
         return weekday[d.getDay()];
-    };
-
-    const getFoodSuggestion = (description) => {
-        const desc = description.toLowerCase();
-        if (desc.includes("clear") || desc.includes("sun")) return "Perfect for a BBQ—grilled ribs and cold drinks under the sun.";
-        if (desc.includes("partly")) return "The kind of day that calls for a picnic—sandwiches and fruit to keep things light.";
-        if (desc.includes("rain")) return "Ideal for cozy stew or homemade soup, perfect for a day inside.";
-        if (desc.includes("overcast") || desc.includes("cloudy")) return "Feels like the right weather for a warm bowl of pasta—comfort food, nothing too heavy.";
-        if (desc.includes("wind")) return "Outdoor picnics canceled, trying to avoid flying plates and napkins.";
-        if (desc.includes("snow") || desc.includes("cold")) return "Perfect for hot chocolate and a warm bowl of chili, maybe add extra marshmallows.";
-        if (desc.includes("fog")) return "Feels like a day for dumplings—steamy, filling, and comforting.";
-        return "Weather’s got its own flavor today—surprise yourself with something new!";
     };
     
     return (
@@ -146,17 +136,27 @@ function Forecast({ setPage }) {
                     <Box
                         sx={{
                             backgroundColor: theme.palette.background.paper,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
                             flexGrow: 1,
                             width: '406px',
                             borderRadius: 3,
                             p: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
+                            pt: 6
                         }}
                     >
                         <WeekForecastList/>
-                        <ToggleControls />
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                ml: 4,
+                            }
+                        }>
+                            <ToggleControls />
+                        </Box>
                     </Box>
                 </Grid>
             </Grid>

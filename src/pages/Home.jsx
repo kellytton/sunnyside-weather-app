@@ -116,8 +116,7 @@ function Home({ setPage }) {
                 >
                     <LocationList key={locations.length} locations={locations} />
                 </Box>
-
-                <ToggleControls />
+                <ToggleControls/>
             </Box>
         </Container>
     );

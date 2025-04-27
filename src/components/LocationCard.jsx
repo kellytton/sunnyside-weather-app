@@ -10,6 +10,7 @@ function LocationCard({ location, onSelect, isSelected }) {
 
     const { unit } = useTemperatureUnit();
 
+    // fetch weather for location
     useEffect(() => {
         const fetchWeather = async () => {
             try {
