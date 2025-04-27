@@ -1,13 +1,8 @@
-import React from "react";
-import {
-    Box,
-    Typography,
-    IconButton,
-    Tooltip
-} from "@mui/material";
+// MUI
+import { Box, Typography, IconButton, Tooltip } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import MinimizeIcon from '@mui/icons-material/Minimize';
 import CloseIcon from '@mui/icons-material/Close';
-import { useTheme } from "@mui/material/styles";
 
 function Navbar({ setPage }) {
     const theme = useTheme();

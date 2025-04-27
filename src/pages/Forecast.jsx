@@ -1,51 +1,83 @@
+// react and hooks
 import React, { useEffect, useState } from "react";
+import { useTheme } from "@mui/material/styles";
+import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
+
+// MUI components
 import {
     Container,
     Box,
-    Grid,
-    Typography
+    Grid
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 
+// custom components
 import Navbar from "../components/Navbar";
 import ToggleControls from "../components/ToggleControls";
 import WeekForecastList from "../components/WeekForecastList";
-import stateAbbreviations from "../utils/stateAbbreviations";
-import { getWeatherDescription, getFoodSuggestion } from "../utils/weatherUtils";
+import CurrentWeatherForecast from "../components/CurrentWeatherForecast";
+import LocationOfForecast from "../components/LocationOfForecast";
 
+// utilities
+import stateAbbreviations from "../utils/stateAbbreviations";
+import { getFoodSuggestion, getWind } from "../utils/weatherUtils";
+
+// assets
 import darkModeBg from "../assets/darkmode.png";
 import lightModeBg from "../assets/lightmode.png";
 
 function Forecast({ setPage }) {
     const theme = useTheme();
     const bgImage = theme.palette.mode === "dark" ? darkModeBg : lightModeBg;
-    const [location, setLocation] = useState('');
-    const abbreviation = stateAbbreviations[location.state] || location.state;
-    const [weather, setWeather] = useState(null);
+    const [location, setLocation] = useState(null);  
+    const [weather, setWeather] = useState(null);    
+    const [temperatureLoading, setTemperatureLoading] = useState(true);
+    const abbreviation = location ? stateAbbreviations[location.state] || location.state : '';
+    const { unit } = useTemperatureUnit();
 
-    // fetch selected location
-    useEffect(() => {
-        const fetchSelectedLocation = async () => {
-            try {
-                const res = await fetch(`http://localhost:3001/api/locations/select`);
-                const data = await res.json();
-                setLocation(data);
-                console.log("Selected location:", data);
-            } catch (err) {
-                console.log("Error fetching selected location:", err);
-            }
-        };
+    // function to fetch location data
+    const fetchLocation = async () => {
+        try {
+            const res = await fetch(`http://localhost:3001/api/locations/select`);
+            const data = await res.json();
+            setLocation(data);
+            console.log("Selected location:", data);
 
-        fetchSelectedLocation();
-    }, []);
-
-    // get the day of the week
-    const getDayOfWeek = () => {
-        const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        const d = new Date();
-        return weekday[d.getDay()];
+            // fetch weather for the selected location
+            fetchWeather(data.latitude, data.longitude);
+        } catch (err) {
+            console.log("Error fetching selected location:", err);
+        }
     };
-    
+
+    // function to fetch weather data for the selected location
+    const fetchWeather = async (latitude, longitude) => {
+        try {
+            const weatherRes = await fetch(`http://localhost:3001/api/weather?latitude=${latitude}&longitude=${longitude}`);
+            const weatherData = await weatherRes.json();
+            console.log("Weather data:", weatherData);
+            setWeather(weatherData.current_weather);
+            setTemperatureLoading(false);  // set loading to false once the temperature data is fetched
+        } catch (err) {
+            console.log("Error fetching weather data:", err);
+            setTemperatureLoading(false);  // if there's an error, still stop the loading spinner
+        }
+    };
+
+    // use effect to call fetchLocation when the component mounts
+    useEffect(() => {
+        fetchLocation();
+    }, []);  // empty dependency array to run only once on component mount
+
+    const getTemperature = () => {
+        if (!weather) return null;
+        const tempC = weather.temperature;
+        return unit === "fahrenheit"
+            ? Math.round((tempC * 9) / 5 + 32)
+            : Math.round(tempC);
+    };
+
+    const unitSymbol = unit === "fahrenheit" ? "°F" : "°C";
+
     return (
         <Container
             maxWidth="lg"
@@ -70,7 +102,7 @@ function Forecast({ setPage }) {
                 }}
             >
                 {/* Left Column - Current Weather with theme-dependent background */}
-                <Grid item xs={8} sx={{ display: 'flex' }}>
+                <Grid item size={8} sx={{ display: 'flex' }}>
                     <Box
                         sx={{
                             backgroundImage: `url(${bgImage})`,
@@ -94,45 +126,22 @@ function Forecast({ setPage }) {
                                 gap: 2
                             }}
                         >
-                            <Box>
-                                <Typography
-                                    sx={{
-                                        fontSize: '100px',
-                                        lineHeight: 1
-                                    }}
-                                >
-                                    98°F
-                                </Typography>
-                                <Typography>feels like 102°</Typography>
-                            </Box>
-                            <Typography
-                                sx={{
-                                    width: '206px',
-                                    fontFamily: 'Inria Serif',
-                                    fontStyle: 'italic',
-                                }}
-                            >
-                                Perfect for a BBQ—grilled ribs and cold drinks under the sun.
-                            </Typography>
+                            <CurrentWeatherForecast
+                                temperatureLoading={temperatureLoading}
+                                temperature={getTemperature()}
+                                unitSymbol={unitSymbol}
+                                windInfo={getWind(weather, unit)}
+                                foodSuggestion={weather ? getFoodSuggestion(weather.weathercode) : 'No suggestion available'}
+                            />
                         </Box>
 
                         {/* Bottom Content */}
-                        <Box>
-                            <Typography>{getDayOfWeek()} in</Typography>
-                            <Typography
-                                sx={{
-                                    fontSize: '36px',
-                                    fontFamily: 'Inria Serif'
-                                }}
-                            >
-                                {location.name}, {abbreviation}
-                            </Typography>
-                        </Box>
+                        <LocationOfForecast location={location} abbreviation={abbreviation} />
                     </Box>
                 </Grid>
 
                 {/* Right Column - Weekly Forecast */}
-                <Grid item xs={4} sx={{ display: 'flex' }}>
+                <Grid item size={4} sx={{ display: 'flex' }}>
                     <Box
                         sx={{
                             backgroundColor: theme.palette.background.paper,
@@ -153,8 +162,8 @@ function Forecast({ setPage }) {
                                 display: 'flex',
                                 justifyContent: 'flex-end',
                                 ml: 4,
-                            }
-                        }>
+                            }}
+                        >
                             <ToggleControls />
                         </Box>
                     </Box>

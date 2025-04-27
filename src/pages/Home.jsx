@@ -1,10 +1,10 @@
+// react and hooks
 import React, { useState, useEffect } from "react";
-import {
-    Container,
-    Box,
-    Typography
-} from "@mui/material";
 
+// MUI components
+import { Container, Box, Typography } from "@mui/material";
+
+// custom components
 import Navbar from "../components/Navbar";
 import ToggleControls from "../components/ToggleControls";
 import LocationList from "../components/LocationList";

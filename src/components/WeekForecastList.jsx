@@ -1,8 +1,16 @@
+// react and hooks
 import React, { useEffect, useState } from "react";
+
+// custom components
 import WeekForecastCard from "./WeekForecastCard";
+
+// MUI components
 import { Box, Skeleton, Fade } from "@mui/material";
-import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 import { useTheme } from "@mui/material/styles";
+
+// custom hooks
+import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
+
 
 function WeekForecastList() {
     const [forecastData, setForecastData] = useState([]);

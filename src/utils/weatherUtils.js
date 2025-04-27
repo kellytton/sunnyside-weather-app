@@ -38,3 +38,35 @@ export function getWeatherDescription(code) {
 export function getFoodSuggestion(code) {
     return weatherMappings[code]?.food || "Weather’s got its own flavor today—surprise yourself with something new!";
 }
+
+// convert wind direction from degrees to compass direction
+export const getWindDirection = (degree) => {
+    const directions = [
+        'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 
+        'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'
+    ];
+    const index = Math.floor((degree + 11.25) / 22.5);
+    return directions[index % 16];
+};
+
+// get wind speed based on user's temperature unit (Celsius or Fahrenheit)
+export const getWindSpeed = (weather, unit) => {
+    if (!weather) return null;
+    if (!weather.windspeed) return 'N/A';
+
+    // convert wind speed based on the temperature unit
+    const windSpeed = unit === "fahrenheit"
+        ? (weather.windspeed * 0.621371).toFixed(1) // Convert km/h to mi/h
+        : weather.windspeed; // Default is in km/h
+    const unitSymbol = unit === "fahrenheit" ? "mi/h" : "km/h";
+
+    return `${windSpeed} ${unitSymbol}`;
+};
+
+// function to get combined wind information (speed and direction)
+export const getWind = (weather, unit) => {
+    if (!weather) return null;
+    const windDirection = getWindDirection(weather.winddirection);
+    const windSpeed = getWindSpeed(weather, unit);
+    return `${windSpeed} from ${windDirection}`;
+};

@@ -1,8 +1,13 @@
+// react and hooks
 import React, { useEffect, useState } from "react";
+import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
+
+// MUI
 import { Box, Typography } from "@mui/material";
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+
+// utils
 import { getWeatherDescription } from "../utils/weatherUtils";
-import { useTemperatureUnit } from "../hooks/useTemperatureUnit";
 
 function LocationCard({ location, onSelect, isSelected }) {
     const [weather, setWeather] = useState(null);
@@ -14,8 +19,8 @@ function LocationCard({ location, onSelect, isSelected }) {
     useEffect(() => {
         const fetchWeather = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/api/weather?latitude=${location.latitude}&longitude=${location.longitude}`);
-                const data = await response.json();
+                const res = await fetch(`http://localhost:3001/api/weather?latitude=${location.latitude}&longitude=${location.longitude}`);
+                const data = await res.json();
                 setWeather(data.current_weather);
             } catch (error) {
                 console.error("Weather fetch failed:", error);

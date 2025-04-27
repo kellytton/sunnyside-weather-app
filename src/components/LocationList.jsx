@@ -1,4 +1,7 @@
+// react and hooks
 import React, { useEffect, useState } from "react";
+
+// custom components
 import LocationCard from "./LocationCard";
 
 function LocationList() {

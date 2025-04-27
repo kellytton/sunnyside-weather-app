@@ -1,9 +1,13 @@
+// react
 import React from "react";
+
+// MUI
 import { Box, IconButton, Tooltip } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
-import { useTheme } from '@mui/material/styles';
 
+// custom hooks
 import { useTemperatureUnit } from '../hooks/useTemperatureUnit';
 import { useThemeMode } from '../hooks/useThemeMode';
 

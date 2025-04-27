@@ -1,14 +1,12 @@
+// react and hooks
 import React, { useState, useEffect } from "react";
-import {
-    Box,
-    TextField,
-    InputAdornment,
-    Button
-} from "@mui/material";
+
+// mui
+import { Box, TextField, InputAdornment, Button } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import { useTheme } from '@mui/material/styles';
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { useTheme } from '@mui/material/styles'; // import theme hook
 
 function SearchBar({ onLocationSelect }) {
     const [searchInput, setSearchInput] = useState("");
