@@ -21,7 +21,7 @@ SunnySide is a cozy, food-themed desktop weather app that serves up more than ju
 | **Tool**        | **Purpose**                            |
 |-----------------|----------------------------------------|
 | Electron        | Cross-platform desktop shell                          |
-| React           | UI framework                           |
+| React           | Frontend user interface                          |
 | Node.js         | Backend runtime for API logic and local server  |
 | SQLite          | Local database for saved locations and preferences    |
 | Vite            | Build tool and fast dev server              |
