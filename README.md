@@ -1,14 +1,18 @@
 # 🌤️ SunnySide
 
-SunnySide is a cozy, food-themed desktop weather app that brings you more than just forecasts—it delivers meal vibes to match the mood. Whether it’s BBQ weather or stew season, SunnySide serves up the perfect dish for the day.
+SunnySide is a cozy, food-themed desktop weather app that serves up more than just forecasts—it delivers meal vibes to match the mood. Whether it’s BBQ weather or stew season, SunnySide serves up the perfect dish for the day.
 
-- [Electron](https://www.electronjs.org/) – for cross-platform desktop support
-- [React.js](https://reactjs.org/) – for the frontend UI
-- [Vite](https://vitejs.dev/) – for fast bundling and dev experience
-- [Material UI (MUI)](https://mui.com/) - for styled, responsive components
-- [Open-Meteo](https://open-meteo.com/) - for accurate weather data
+> ☀️ **“Good weather, good mood, good food.”**
 
-This project is currently in active development!
+---
+
+## 🍴 Features
+
+- 🍔 **Meal-Weather Matching** – Craving comfort food? SunnySide suggests dishes based on the day’s weather.
+- 📍 **Local Forecasts** – Real-time weather data using [Open-Meteo](https://open-meteo.com/).
+- 📦 **Cross-Platform** – Working towards running smoothly on macOS and Windows via [Electron](https://www.electronjs.org/).
+- 🌐 **Geolocation Support** – Get forecasts based on your saved locations.
+- 🎨 **Responsive UI** – Built with [React.js](https://reactjs.org/) and [Material UI (MUI)](https://mui.com/).
 
 ---
 
@@ -21,9 +25,9 @@ This project is currently in active development!
 | Node.js         | Backend runtime for API logic and local server  |
 | SQLite          | Local database for saved locations and preferences    |
 | Vite            | Build tool and fast dev server              |
-| Material UI (MUI)| UI component library                   |
-| Open-Meteo     | Fetch weather data             |
-| Express        | API server for geocoding and weather requests |
+| Material UI (MUI)| Styled, responsive components                   |
+| Open-Meteo     | Weather API provider             |
+| Express        | Lightweight server for API handling |
 
 ---
 
@@ -57,4 +61,8 @@ Back in the root project folder, start the Electron + React app:
 ```bash
 npm run electron:dev
 ```
-This will launch the desktop app in developoment mode.
+This will launch the desktop app in development mode.
+
+---
+
+This desktop app is still in development!
